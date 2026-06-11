@@ -1,0 +1,23 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #000; overflow: hidden; }
+canvas { display: block; }
+#ui {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  color: #ccc;
+  font-family: monospace;
+  font-size: 13px;
+  user-select: none;
+}
+#shader-select {
+  display: block;
+  margin-top: 6px;
+  background: #111;
+  color: #eee;
+  border: 1px solid #444;
+  padding: 4px 6px;
+  font-family: monospace;
+  font-size: 13px;
+  cursor: pointer;
+}
