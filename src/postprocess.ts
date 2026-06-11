@@ -2,11 +2,13 @@ import * as THREE from "three";
 
 import passVert from './shaders/passVert.glsl?raw';
 import passthroughFrag from './shaders/passthrough.frag?raw';
-//import pixelationFrag from './shaders/pixelation.frag?raw';
+import pixelationFrag from './shaders/pixelation.frag?raw';
+import receiptFrag from './shaders/receipt.frag?raw';
 
 export const SHADERS = {
     passthrough: passthroughFrag,
-    //pixelation: pixelationFrag,
+    pixelation: pixelationFrag,
+    receipt: receiptFrag,
 }
 
 export function buildPostProcess(renderer) {

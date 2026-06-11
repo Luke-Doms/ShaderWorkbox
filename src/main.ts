@@ -3,6 +3,7 @@ import { Timer } from 'three';
 import * as THREE from 'three';
 import { buildScene } from './scene.ts';
 import { SHADERS, buildPostProcess } from './postProcess.ts';
+console.log(SHADERS);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -11,7 +12,7 @@ document.body.appendChild(renderer.domElement);
 const { scene, camera, update: sceneUpdate, onResize: resizeScene} = buildScene();
 const { render: postRender, setShader, onResize: resizePost, uniforms } = buildPostProcess(renderer);
 
-const select = document.getElementById('shader-select');
+const select = document.getElementById('shader-select') as HTMLSelectElement;
 Object.keys(SHADERS).forEach((key) => {
   const option = document.createElement('option');
   option.value = key;
