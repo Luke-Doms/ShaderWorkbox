@@ -22,7 +22,7 @@ Object.keys(SHADERS).forEach((key) => {
 });
 
 const assetGroups = new Map<string, HTMLOptGroupElement>();
-Object.entries(ASSETS).forEach(([key, asset]) => {
+Object.entries(ASSETS).forEach(([key, asset]: [string, typeof ASSETS[string]]) => {
   if (!assetGroups.has(asset.type)) {
     const group = document.createElement('optgroup');
     group.label = asset.type.charAt(0).toUpperCase() + asset.type.slice(1) + 's';
