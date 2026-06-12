@@ -10,7 +10,7 @@ canvas { display: block; }
   font-size: 13px;
   user-select: none;
 }
-#shader-select {
+#shader-select, #asset-select {
   display: block;
   margin-top: 6px;
   background: #111;
