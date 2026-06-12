@@ -9,6 +9,8 @@ import circularFrag from './shaders/circular.frag?raw';
 import catsInterest from './assets/CatsInterest.jpeg';
 import klimtDeath from './assets/KlimtDeath.jpeg';
 import langNibelungen from './assets/LangNibelungen.jpeg';
+import bocklinIsleoftheDead from './assets/BocklinIsleoftheDead.jpeg';
+import surfsUp from './assets/SurfsUp.jpg';
 
 export const SHADERS: Record<string, string> = {
     passthrough: passthroughFrag,
@@ -22,6 +24,8 @@ export const ASSETS: Record<string, { type: 'scene' | 'texture', src: string | n
     catsInterest:   { type: 'texture', src: catsInterest,   name: 'Cats Interest' },
     klimtDeath:     { type: 'texture', src: klimtDeath,     name: 'Death' },
     langNibelungen: { type: 'texture', src: langNibelungen, name: 'Nibelungen' },
+    bocklinIsleoftheDead: { type: 'texture', src: bocklinIsleoftheDead, name: 'Isle of the Dead'},
+    surfsUp: { type: 'texture', src: surfsUp, name: 'Surfs Up'},
 };
 
 export function buildPostProcess(renderer) {
