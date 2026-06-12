@@ -28,7 +28,7 @@ export const ASSETS: Record<string, { type: 'scene' | 'texture', src: string | n
     surfsUp: { type: 'texture', src: surfsUp, name: 'Surfs Up'},
 };
 
-export function buildPostProcess(renderer) {
+export function buildPostProcess(renderer: THREE.Renderer) {
     //create render target
     const target = new THREE.WebGLRenderTarget(window.innerWidth, window.innerHeight, {
         minFilter: THREE.LinearFilter,
@@ -89,7 +89,7 @@ export function buildPostProcess(renderer) {
         uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
     }
 
-    function render(scene, camera, time) {
+    function render(scene: THREE.Scene, camera: THREE.Camera, time) {
         uniforms.iTime.value = time;
 
         if (useSceneRender) {

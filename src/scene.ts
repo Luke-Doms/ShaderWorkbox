@@ -46,7 +46,7 @@ export function buildScene() {
     camera.updateProjectionMatrix();
   }
 
-  function update(t) {
+  function update(t: number) {
     cube.rotation.y = t * 0.5;
     cube.rotation.x = t * 0.3;
     sphere.position.y = 1 + Math.sin(t * 1.2) * 0.2;
