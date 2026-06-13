@@ -1,10 +1,12 @@
 import * as THREE from "three";
+import { getASCIITexture } from "./ascii.ts";
 
 import passVert from './shaders/passVert.glsl?raw';
 import passthroughFrag from './shaders/passthrough.frag?raw';
 import pixelationFrag from './shaders/pixelation.frag?raw';
 import receiptFrag from './shaders/receipt.frag?raw';
 import circularFrag from './shaders/circular.frag?raw';
+import asciiFrag from './shaders/ascii.frag?raw';
 
 import catsInterest from './assets/CatsInterest.jpeg';
 import klimtDeath from './assets/KlimtDeath.jpeg';
@@ -17,6 +19,7 @@ export const SHADERS: Record<string, string> = {
     pixelation: pixelationFrag,
     receipt: receiptFrag,
     circular: circularFrag,
+    ascii: asciiFrag,
 };
 
 export const ASSETS: Record<string, { type: 'scene' | 'texture', src: string | null, name: string }> = {
@@ -38,6 +41,7 @@ export function buildPostProcess(renderer: THREE.Renderer) {
 
     const uniforms = {
         tScene: { value: target.texture },
+        tAscii: { value: getASCIITexture() },
         iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
         iTime: { value: 0 },
         iMouse: { value: new THREE.Vector2(0, 0)},
@@ -89,7 +93,7 @@ export function buildPostProcess(renderer: THREE.Renderer) {
         uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
     }
 
-    function render(scene: THREE.Scene, camera: THREE.Camera, time) {
+    function render(scene: THREE.Scene, camera: THREE.Camera, time: number) {
         uniforms.iTime.value = time;
 
         if (useSceneRender) {
