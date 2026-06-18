@@ -25,5 +25,6 @@ void main() {
     float circleMask = smoothstep(radius, radius - 0.05, distanceFromCenter);
     color.rgb = vec3(circleMask, circleMask, circleMask) * max(luma, 0.05); 
 
-    gl_FragColor = vec4(color.rgb, 1);
+    float mask = step(0.0, vUv.x) * step(vUv.x, 1.0) * step(0.0, vUv.y) * step(vUv.y, 1.0);
+    gl_FragColor = vec4(color.rgb * mask, 1.0);
 }

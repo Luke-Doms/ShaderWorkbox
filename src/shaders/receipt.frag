@@ -51,5 +51,6 @@ void main() {
         color = vec4(0.70,0.74,0.73, 1.0);
     }
     
-    gl_FragColor = color;
+    float mask = step(0.0, vUv.x) * step(vUv.x, 1.0) * step(0.0, vUv.y) * step(vUv.y, 1.0);
+    gl_FragColor = vec4(color.rgb * mask, 1.0);
 }

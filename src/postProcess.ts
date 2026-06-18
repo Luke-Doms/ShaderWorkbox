@@ -13,6 +13,7 @@ import klimtDeath from './assets/KlimtDeath.jpeg';
 import langNibelungen from './assets/LangNibelungen.jpeg';
 import bocklinIsleoftheDead from './assets/BocklinIsleoftheDead.jpeg';
 import surfsUp from './assets/SurfsUp.jpg';
+import fomenko from './assets/Fomenko.png'
 
 export const SHADERS: Record<string, string> = {
     passthrough: passthroughFrag,
@@ -29,6 +30,7 @@ export const ASSETS: Record<string, { type: 'scene' | 'texture', src: string | n
     langNibelungen: { type: 'texture', src: langNibelungen, name: 'Nibelungen' },
     bocklinIsleoftheDead: { type: 'texture', src: bocklinIsleoftheDead, name: 'Isle of the Dead'},
     surfsUp: { type: 'texture', src: surfsUp, name: 'Surfs Up'},
+    fomenko: { type: 'texture', src: fomenko, name: 'Fomenko'},
 };
 
 export function buildPostProcess(renderer: THREE.Renderer) {
@@ -43,6 +45,7 @@ export function buildPostProcess(renderer: THREE.Renderer) {
         tScene: { value: target.texture },
         tAscii: { value: getASCIITexture() },
         iResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        tResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
         iTime: { value: 0 },
         iMouse: { value: new THREE.Vector2(0, 0)},
     };
@@ -50,7 +53,14 @@ export function buildPostProcess(renderer: THREE.Renderer) {
     const textureLoader = new THREE.TextureLoader();
     const loadedTextures = new Map<string, THREE.Texture>();
     function getTexture(src: string): THREE.Texture {
-        if (!loadedTextures.has(src)) loadedTextures.set(src, textureLoader.load(src));
+        if (!loadedTextures.has(src)) {
+            loadedTextures.set(src, textureLoader.load(src, (t: THREE.Texture) => {
+                uniforms.tResolution.value.set(t.image.width, t.image.height);
+            }));
+        } else {
+            const t = loadedTextures.get(src)!;
+            if (t.image) uniforms.tResolution.value.set(t.image.width, t.image.height);
+        }
         return loadedTextures.get(src)!;
     }
 
@@ -80,6 +90,7 @@ export function buildPostProcess(renderer: THREE.Renderer) {
         if (!shader || !asset) return;
         if (asset.type === 'scene') {
             uniforms.tScene.value = target.texture;
+            uniforms.tResolution.value.set(window.innerWidth, window.innerHeight);
             useSceneRender = true;
         } else {
             uniforms.tScene.value = getTexture(asset.src as string);
@@ -91,6 +102,7 @@ export function buildPostProcess(renderer: THREE.Renderer) {
     function onResize() {
         target.setSize(window.innerWidth, window.innerHeight);
         uniforms.iResolution.value.set(window.innerWidth, window.innerHeight);
+        if (useSceneRender) uniforms.tResolution.value.set(window.innerWidth, window.innerHeight);
     }
 
     function render(scene: THREE.Scene, camera: THREE.Camera, time: number) {
